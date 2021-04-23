@@ -1,25 +1,39 @@
 import logo from './logo.svg';
 import './App.css';
+import CharacterProvider, { useCharacters } from './context/character-context';
 
 function App() {
+  const { characters, getCharacter, character } = useCharacters();
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {Object.values(character).length === 0 && (
+          <img src={logo} className="App-logo" alt="logo" />
+        )}
+
+        {Object.values(character).length > 0 && (
+          <img src={character.image} alt={character.name} />
+        )}
+        <ul style={{ listStyleType: 'none' }}>
+          {characters.map((c) => {
+            return (
+              <li onClick={() => getCharacter(c.id)} key={c.id}>
+                {' '}
+                {c.name}{' '}
+              </li>
+            );
+          })}
+        </ul>
       </header>
     </div>
   );
 }
 
-export default App;
+const AppWithContext = () => (
+  <CharacterProvider>
+    <App />
+  </CharacterProvider>
+);
+
+export default AppWithContext;
