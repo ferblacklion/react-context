@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import CharacterProvider, { useCharacters } from './context/character-context';
+import ImageGallery from './components/ImageGallery';
 
 function App() {
   const { characters, getCharacter, character } = useCharacters();
@@ -8,6 +9,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <h1>Examples</h1>
         {Object.values(character).length === 0 && (
           <img src={logo} className="App-logo" alt="logo" />
         )}
@@ -25,6 +27,8 @@ function App() {
             );
           })}
         </ul>
+        <br />
+        <ImageGallery />
       </header>
     </div>
   );
